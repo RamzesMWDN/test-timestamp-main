@@ -26,6 +26,12 @@ app.get("/api/hello", function (req, res) {
 
 app.get("/api/:date", (req, res) => 
 { 
+  if(!req.params.date)
+  {
+    let dtUnix = Date.parse(new Date());
+    let dtUtc = new Date(dtUnix);
+    return res.json({unix:dtUnix,utc:dtUtc.toUTCString()});
+  }
   let num = Number(req.params.date);
   if(!num)
   {
