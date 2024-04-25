@@ -24,6 +24,30 @@ app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
 
+app.get("/api/:date", (req, res) => 
+{ 
+  let num = Number(req.params.date);
+  if(!num)
+  {
+    let dtUnix = Date.parse(req.params.date);
+    let dtUtc = new Date(dtUnix);
+    if(!dtUnix)
+    {
+      return res.json({error:dtUtc.toUTCString()});
+    }
+    res.json({unix:dtUnix,utc:dtUtc.toUTCString()});
+
+  }
+  else
+  {
+
+    //let dtUnix = Date.parse(num);
+    let dtUtc = new Date(num);
+    res.json({unix:num,utc:dtUtc.toUTCString()})
+  }
+
+})
+
 
 
 // Listen on port set in environment variable or default to 3000
